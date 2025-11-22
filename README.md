@@ -10,11 +10,13 @@ Ein "Fire-and-Forget" PowerShell-Skript für Systemadministratoren und Power-Use
 
 **1. Der Prozess (Live-Ansicht in der Konsole)**
 Das Skript visualisiert Updates und Checks mit Fortschrittsbalken.
-![Console Output](repscript_screenshot.png)
+![Console Output](<img width="1313" height="343" alt="repscript_screenshot" src="https://github.com/user-attachments/assets/9a29419f-3e51-4d62-9535-bb7a3a31c0f9" />
+)
 
 **2. Das Ergebnis (HTML-Log)**
 Nach Abschluss wird automatisch ein browserbasierter Bericht im Dark-Mode generiert.
-![HTML Report](image_1c1aa0.png)
+![HTML Report](<img width="1276" height="837" alt="image_1c1aa0" src="https://github.com/user-attachments/assets/cdd708c9-9921-4d62-ad9e-965f2d55a334" />
+)
 
 ---
 
@@ -40,7 +42,7 @@ Dieses Skript nutzt ausschließlich Windows-Bordmittel und offizielle Module.
 ## 📥 Installation & Nutzung
 
 ### Download
-Lade dir einfach die Datei [`RepScript.ps1`](RepScript.ps1) aus diesem Repository herunter.
+Lade dir einfach die Datei [`RepScript.ps1`]() aus diesem Repository herunter.
 
 ### Ausführung
 Da PowerShell-Skripte standardmäßig blockiert sein können, starte das Skript am besten so:
