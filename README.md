@@ -10,13 +10,11 @@ Ein "Fire-and-Forget" PowerShell-Skript für Systemadministratoren und Power-Use
 
 **1. Der Prozess (Live-Ansicht in der Konsole)**
 Das Skript visualisiert Updates und Checks mit Fortschrittsbalken.
-![Console Output](<img width="1313" height="343" alt="repscript_screenshot" src="https://github.com/user-attachments/assets/9a29419f-3e51-4d62-9535-bb7a3a31c0f9" />
-)
+![Console Output](https://github.com/user-attachments/assets/9a29419f-3e51-4d62-9535-bb7a3a31c0f9)
 
 **2. Das Ergebnis (HTML-Log)**
 Nach Abschluss wird automatisch ein browserbasierter Bericht im Dark-Mode generiert.
-![HTML Report](<img width="1276" height="837" alt="image_1c1aa0" src="https://github.com/user-attachments/assets/cdd708c9-9921-4d62-ad9e-965f2d55a334" />
-)
+![HTML Report](https://github.com/user-attachments/assets/cdd708c9-9921-4d62-ad9e-965f2d55a334)
 
 ---
 
