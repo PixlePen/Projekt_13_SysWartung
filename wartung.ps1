@@ -71,10 +71,36 @@ if ($FreeGB -lt 20) {
     Log-Html "Speicherplatz C:" "SUCCESS" "$($FreeGB)GB frei (OK)"
 }
 
-# DNS Flush
-Write-Host "Leere DNS Cache..."
-ipconfig /flushdns | Out-Null
-Log-Html "DNS Cache geleert" "SUCCESS"
+# S.M.A.R.T. Status Check (Neu)
+try {
+    $SmartDrives = Get-CimInstance -Namespace root\wmi -ClassName MSStorageDriver_FailurePredictStatus -ErrorAction Stop
+    $SmartError = $false
+    foreach ($Disk in $SmartDrives) {
+        if ($Disk.PredictFailure) {
+            Log-Html "S.M.A.R.T. Status" "ERROR" "Ein Laufwerk meldet einen drohenden Ausfall!"
+            $SmartError = $true
+        }
+    }
+    if (-not $SmartError) { Log-Html "S.M.A.R.T. Status" "SUCCESS" "Alle Laufwerke OK" }
+} catch {
+    Log-Html "S.M.A.R.T. Status" "WARN" "Konnte nicht ausgelesen werden (evtl. nicht unterstützt)"
+}
+
+# DNS Flush (Optionalisiert)
+# ipconfig /flushdns | Out-Null
+Log-Html "DNS Cache" "INFO" "Übersprungen (Routine nicht zwingend erforderlich)"
+
+# Software Updates (Neu via Winget)
+try {
+    $WingetCheck = winget upgrade 2>&1 | Out-String
+    if ($WingetCheck -match "Es sind keine anwendbaren Updates verfügbar" -or $WingetCheck -match "No applicable update found") {
+        Log-Html "Winget Software-Updates" "SUCCESS" "Alle Pakete sind aktuell."
+    } else {
+        Log-Html "Winget Software-Updates" "INFO" $WingetCheck
+    }
+} catch {
+    Log-Html "Winget Software-Updates" "WARN" "Winget nicht verfügbar."
+}
 
 # Windows Updates (Suche)
 Log-Html "Suche nach Windows Updates..." "INFO"
