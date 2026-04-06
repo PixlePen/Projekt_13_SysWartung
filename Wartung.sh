@@ -98,11 +98,21 @@ else
 fi
 
 if command -v smartctl &> /dev/null; then
-    SMART_DATA=$(smartctl -H /dev/sda 2>&1)
-    if [[ "$SMART_DATA" == *"PASSED"* ]]; then
-        log_html "S.M.A.R.T Check" "SUCCESS" "$SMART_DATA"
-    else
-        log_html "S.M.A.R.T Check" "ERROR" "$SMART_DATA"
+    SMART_OK=0
+    SMART_FAIL=0
+    # Alle physischen Disks erkennen (SATA, NVMe, etc.)
+    while IFS= read -r DISK; do
+        SMART_DATA=$(smartctl -H "$DISK" 2>&1)
+        if [[ "$SMART_DATA" == *"PASSED"* || "$SMART_DATA" == *"OK"* ]]; then
+            log_html "S.M.A.R.T Check ($DISK)" "SUCCESS" "$SMART_DATA"
+            ((SMART_OK++))
+        else
+            log_html "S.M.A.R.T Check ($DISK)" "ERROR" "$SMART_DATA"
+            ((SMART_FAIL++))
+        fi
+    done < <(lsblk -dnpo NAME -e 7,11 2>/dev/null || echo "/dev/sda")
+    if [[ $SMART_OK -eq 0 && $SMART_FAIL -eq 0 ]]; then
+        log_html "S.M.A.R.T Check" "WARN" "Keine Disks gefunden."
     fi
 else
     log_html "S.M.A.R.T Check" "WARN" "smartmontools fehlen."
